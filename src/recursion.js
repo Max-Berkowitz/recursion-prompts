@@ -38,8 +38,7 @@ var isEven = function(n) {
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
-	if(!n) return 0;
-	return n < 0 ? ++n + sumBelow(n) : --n + sumBelow(n);
+	return n === 0 ? 0 : !n ? null : n < 0 ? ++n + sumBelow(n) : --n + sumBelow(n);
 };
 
 // 6. Get the integers within a range (x, y).
@@ -123,6 +122,10 @@ var divide = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
+  if(x < 0 || y < 0) return null;
+  if(!x) return y;
+  if(!y) return x;
+  return x > y ? gcd(x % y, y) : gcd(x, y % x);
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
