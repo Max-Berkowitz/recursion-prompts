@@ -110,6 +110,11 @@ var multiply = function(x, y) {
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods.
 var divide = function(x, y) {
+	if((y > 0 && x < y && -x < y) || (y < 0 && x > y && -x > y)) return 0;
+	if(!y) return NaN;
+	if(!x) return 0;
+	if(y < 0 && x > y && -x > y) return 0;
+	return x < 0 ? divide(x + y, y) - 1 : 1 + divide(x - y, y);
 };
 
 // 14. Find the greatest common divisor (gcd) of two positive numbers. The GCD of two
