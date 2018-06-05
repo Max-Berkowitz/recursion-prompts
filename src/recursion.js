@@ -101,6 +101,10 @@ var modulo = function(x, y) {
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
+	if(y === 1) return x;
+	if(!y || !x) return 0;
+	if(y === -1) return -x;
+	return y < 0 ? multiply(x, ++y) - x : x + multiply(x, --y);
 };
 
 // 13. Write a function that divides two numbers without using the / operator or
