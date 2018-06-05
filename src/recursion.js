@@ -79,6 +79,10 @@ var reverse = function(string) {
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+	string = string.replace(/ /g, '').toLowerCase();
+	if(!string.length || string.length === 1) return true;
+	if(string[0] === string.slice(-1)) return palindrome(string.slice(1, -1));
+	return false;
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
