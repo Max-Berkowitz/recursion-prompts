@@ -182,14 +182,26 @@ var rMap = function(array, callback) {
 // var obj = {'e':{'x':'y'},'t':{'r':{'e':'r'},'p':{'y':'r'}},'y':'e'};
 // countKeysInObj(obj, 'r') // 1
 // countKeysInObj(obj, 'e') // 2
+let getAllKeys = function(obj){
+  let key = Object.keys(obj)[0];
+  return !key ? [] : obj[key].constructor === Object ? [key].concat(getAllKeys(Object.assign({}, obj[key]))).concat(getAllKeys((delete obj[key]) && obj)) : [key].concat(getAllKeys((delete obj[key]) && obj));
+};
 var countKeysInObj = function(obj, key) {
+  let keys = obj.constructor === Object ? getAllKeys(Object.assign({}, obj)) : obj;
+  return !keys.length ? 0 : +(keys[0] === key) + countKeysInObj(keys.slice(1), key);
 };
 
 // 23. Write a function that counts the number of times a value occurs in an object.
 // var obj = {'e':{'x':'y'},'t':{'r':{'e':'r'},'p':{'y':'r'}},'y':'e'};
 // countValuesInObj(obj, 'r') // 2
 // countValuesInObj(obj, 'e') // 1
+let getAllVals = function(obj){
+  let key = Object.keys(obj)[0];
+  return !key ? [] : obj[key].constructor === Object ? getAllVals(Object.assign({}, obj[key])).concat(getAllVals((delete obj[key]) && obj)) : [obj[key]].concat(getAllVals((delete obj[key]) && obj));
+};
 var countValuesInObj = function(obj, value) {
+  let vals = obj.constructor === Object ? getAllVals(Object.assign({}, obj)) : obj;
+  return !vals.length ? 0 : +(vals[0] === value) + countValuesInObj(vals.slice(1), value);
 };
 
 // 24. Find all keys in an object (and nested objects) by a provided name and rename
