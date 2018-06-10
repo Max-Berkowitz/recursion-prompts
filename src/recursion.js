@@ -184,7 +184,7 @@ var rMap = function(array, callback) {
 // countKeysInObj(obj, 'e') // 2
 let getAllKeys = function(obj){
   let key = Object.keys(obj)[0];
-  return !key ? [] : obj[key].constructor === Object ? [key].concat(getAllKeys(Object.assign({}, obj[key]))).concat(getAllKeys((delete obj[key]) && obj)) : [key].concat(getAllKeys((delete obj[key]) && obj));
+  return !key ? [] : (obj[key].constructor === Object ? [key].concat(getAllKeys(Object.assign({}, obj[key]))) : [key]).concat(getAllKeys((delete obj[key]) && obj));
 };
 var countKeysInObj = function(obj, key) {
   let keys = obj.constructor === Object ? getAllKeys(Object.assign({}, obj)) : obj;
@@ -197,7 +197,7 @@ var countKeysInObj = function(obj, key) {
 // countValuesInObj(obj, 'e') // 1
 let getAllVals = function(obj){
   let key = Object.keys(obj)[0];
-  return !key ? [] : obj[key].constructor === Object ? getAllVals(Object.assign({}, obj[key])).concat(getAllVals((delete obj[key]) && obj)) : [obj[key]].concat(getAllVals((delete obj[key]) && obj));
+  return !key ? [] : (obj[key].constructor === Object ? getAllVals(Object.assign({}, obj[key])) : [obj[key]]).concat(getAllVals((delete obj[key]) && obj));
 };
 var countValuesInObj = function(obj, value) {
   let vals = obj.constructor === Object ? getAllVals(Object.assign({}, obj)) : obj;
@@ -267,7 +267,7 @@ var nestedEvenSum = function(obj) {
 // 30. Flatten an array containing nested arrays.
 // flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
 var flatten = function(array) {
-  return !array.length ? [] : array[0].constructor === Array ? flatten(array[0]).concat(flatten(array.slice(1))) : [array[0]].concat(flatten(array.slice(1)));
+  return !array.length ? [] : (array[0].constructor === Array ? flatten(array[0]) : [array[0]]).concat(flatten(array.slice(1)));
 };
 
 // 31. Given a string, return an object containing tallies of each letter.
@@ -285,13 +285,14 @@ var letterTally = function(str, obj) {
 // compress([1,2,2,3,4,4,5,5,5]) // [1,2,3,4,5]
 // compress([1,2,2,3,4,4,2,5,5,5,4,4]) // [1,2,3,4,2,5,4]
 var compress = function(list) {
-  return !list.length ? [] : list[0] === list[1] ? compress(list.slice(1)) : [list[0]].concat(compress(list.slice(1)));
+  return !list.length ? [] : (list[0] === list[1] ? [] : [list[0]]).concat(compress(list.slice(1)));
 };
 
 // 33. Augument every element in a list with a new value where each element is an array
 // itself.
 // augmentElements([[],[3],[7]], 5); // [[5],[3,5],[7,5]]
 var augmentElements = function(array, aug) {
+  return !array.length ? [] : [array[0].concat([aug])].concat(augmentElements(array.slice(1), aug));
 };
 
 // 34. Reduce a series of zeroes to a single 0.
