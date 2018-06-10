@@ -363,5 +363,5 @@ var clone = function(input) {
       else obj[key] = val;
     });
     return obj;
-  } else return !input.length ? [] : (input[0].constructor === Array || input[0].constructor === Object ? [clone(input[0])] :  [input[0]]).concat(clone(input.slice(1)));
+  } else return !input.length ? [] : (input[0].constructor === Array || input[0].constructor === Object ? [clone(input[0])] : [input[0]]).concat(clone(input.slice(1)));
 };
