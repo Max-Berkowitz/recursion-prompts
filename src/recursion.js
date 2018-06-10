@@ -325,14 +325,18 @@ var numToText = function(str) {
 // *** EXTRA CREDIT ***
 
 // 37. Return the number of times a tag occurs in the DOM.
-var tagCount = function(tag, node) {
+var tagCount = function(tag, node = $(document)) {
+  tag = tag.constructor === String ? node.find(tag) : tag;
+  return !tag.length ? 0 : 1 + tagCount(tag.slice(1), node);
 };
 
 // 38. Write a function for binary search.
 // var array = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 // binarySearch(array, 5) // 5
 // https://www.khanacademy.org/computing/computer-science/algorithms/binary-search/a/binary-search
-var binarySearch = function(array, target, min, max) {
+var binarySearch = function(array, target, min = 0, max = array.length - 1) {
+  let guess = Math.floor((min + max) / 2);
+  return array[guess] === target ? guess : min >= max ? null : array[guess] < target ? binarySearch(array, target, guess + 1, max) : binarySearch(array, target, min, guess - 1);
 };
 
 // 39. Write a merge sort function.
