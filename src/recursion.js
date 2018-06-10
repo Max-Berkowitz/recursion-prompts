@@ -355,4 +355,13 @@ var mergeSort = function(array) {
 // console.log(obj2); // {a:1,b:{bb:{bbb:2}},c:3}
 // obj1 === obj2 // false
 var clone = function(input) {
+  let obj;
+  if(input.constructor === Object){
+    obj = {};
+    $.each(input, function(key, val){
+      if(val.constructor === Object || val.constructor === Array) obj[key] = clone(val);
+      else obj[key] = val;
+    });
+    return obj;
+  } else return !input.length ? [] : (input[0].constructor === Array || input[0].constructor === Object ? [clone(input[0])] :  [input[0]]).concat(clone(input.slice(1)));
 };
