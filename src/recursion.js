@@ -325,8 +325,8 @@ var numToText = function(str) {
 // *** EXTRA CREDIT ***
 
 // 37. Return the number of times a tag occurs in the DOM.
-var tagCount = function(tag, node = $(document)) {
-  tag = tag.constructor === String ? node.find(tag) : tag;
+var tagCount = function(tag, node = document) {
+  tag = tag.constructor === String ? $(node).find(tag) : tag;
   return !tag.length ? 0 : 1 + tagCount(tag.slice(1), node);
 };
 
